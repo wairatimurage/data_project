@@ -1,6 +1,6 @@
 from django import forms
 
-from main_app.models import Employee
+from main_app import Employee
 
 
 class EmployeeForm(forms.ModelForm):

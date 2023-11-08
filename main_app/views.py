@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 
-from main_app.apps_form import EmployeeForm
-from main_app.models import Employee
+from main_app import EmployeeForm
+from main_app import Employee
 
 
 def home(request):
