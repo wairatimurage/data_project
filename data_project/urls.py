@@ -22,10 +22,17 @@ from data_project import settings
 from main_app import views
 
 urlpatterns = [
-                  path('', views.home, name="home"),
-                  path('employees', views.show_data, name="all"),
-                  path('employees/<int:emp_id>', views.employee_details, name="details"),
-                  path('admin/', admin.site.urls)
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('', views.home, name="home"),
+    path('employees', views.all_employees, name="all"),
+    path('employees/<int:emp_id>', views.employee_details, name="details"),
+    path('employees/delete/<int:emp_id>', views.employee_delete, name="delete"),
+    path('admin/', admin.site.urls),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# "employees/<int:emp_id>"
+# tables
+# user
 
-# admin admin@gmail.com pass1234
+# admin , admin@gmail.com , 123456
+
+# python manage.py migrate
+# python manage.py createsuperuser

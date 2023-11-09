@@ -1,26 +1,38 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import render, redirect, get_object_or_404
 
-from main_app import EmployeeForm
-from main_app import Employee
+from main_app.apps_form import EmployeeForm
+from main_app.models import Employee
 
 
+# Create your views here.
 def home(request):
     if request.method == "POST":
         form = EmployeeForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect("home")
-    else:  # Handle non-POST requests here
+
+    else:
         form = EmployeeForm()
-    return render(request, 'employee.html', {"form": form})
+    return render(request, "employee.html", {"form": form})
 
 
-def show_data(request):
-    employees = Employee.objects.all()
-    return render(request, 'show_data.html', {"employees": employees})
+# Model View Template
 
+# All employees
+# One employee
+def all_employees(request):
+    employees = Employee.objects.all()  # SELECT * FROM employees
+    employees = Employee.objects.all().order_by("-salary")
+    return render(request, "all_employees.html", {"employees": employees})
 
 
 def employee_details(request, emp_id):
-    employee = Employee.objects.get(pk=emp_id)
-    return render(request, 'employee_details.html', {"employee": employee} )
+    employee = Employee.objects.get(pk=emp_id)  # SELECT * FROM employees WHERE id=1
+    return render(request, "employee_details.html", {"employee": employee})
+
+
+def employee_delete(request, emp_id):
+    employee = get_object_or_404(Employee, pk=emp_id)
+    employee_delete()
+    return redirect("all")

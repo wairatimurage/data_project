@@ -1,6 +1,6 @@
 from django import forms
 
-from main_app import Employee
+from main_app.models import Employee
 
 
 class EmployeeForm(forms.ModelForm):
@@ -11,7 +11,8 @@ class EmployeeForm(forms.ModelForm):
             "dob": forms.DateInput(attrs={"type": "date", "min": "1990-01-01", "max": "2005-12-31"}),
             "salary": forms.NumberInput(attrs={"max": 75000, "min": 10000})
         }
+
         labels = {
-            "dob": "Date of Birth",
+            "dob": "Date Of Birth",
             "email": "Email Address"
         }

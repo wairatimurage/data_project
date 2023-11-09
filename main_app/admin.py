@@ -1,9 +1,10 @@
 from django.contrib import admin
 
-from main_app import Employee
+from main_app.models import Employee
 
 # Register your models here.
-admin.site.site_header = "Murages"
+admin.site.site_header = "Wezesha System"
+admin.site.index_title = "Wezesha"
 
 
 class EmployeeAdmin(admin.ModelAdmin):
