@@ -1,3 +1,5 @@
+from django.core.paginator import Paginator
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 
 from main_app.apps_form import EmployeeForm
@@ -24,7 +26,11 @@ def home(request):
 def all_employees(request):
     employees = Employee.objects.all()  # SELECT * FROM employees
     employees = Employee.objects.all().order_by("-salary")
-    return render(request, "all_employees.html", {"employees": employees})
+    paginator = Paginator(employees, 20)
+    page_number = request.GET.get("page")
+    data = paginator.get_page(paginator)
+    return render(request, "all_employees.html", {"employees": data})
+
 
 
 def employee_details(request, emp_id):
@@ -34,5 +40,11 @@ def employee_details(request, emp_id):
 
 def employee_delete(request, emp_id):
     employee = get_object_or_404(Employee, pk=emp_id)
-    employee_delete()
+    employee.delete()
     return redirect("all")
+
+
+def search_employees(request):
+    search_word = request.GET["search_word"]
+    employees = Employee.objects.filter(Q(name__icontains=search_word) | Q(email__icontains=search_word))
+    return render(request, "all_employees.html", {"employees": employees})
