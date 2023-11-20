@@ -27,9 +27,15 @@ class Employee(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'Employee'
+        verbose_name_plural = 'Employees'
+        ordering = ["salary"]
 # python manage.py makemigrations
 # python manage.py migrate
 # python manage.py populate
+
 # pip install Pillow
 
 # module package library

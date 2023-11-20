@@ -1,6 +1,2 @@
-class Employee:
-    pass
-
-
-class EmployeeForm:
-    pass
+def app_form():
+    return None
